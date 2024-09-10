@@ -1,0 +1,31 @@
+.Ranking-wrapper {
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .Ranking-ranking {
+    font-size: 32px;
+    color: #ffffff;
+  }
+  
+  .Ranking-recommend {
+    font-size: 18px;
+    color: #6c6c6c;
+  }
+  
+  .Ranking-dpi {
+    margin: 20px 0;
+  }
+
+  .Ranking-dpi div:hover{
+    color : blueviolet;
+  }
+
+  .Ranking-view {
+    color: #ffffff;
+    cursor: pointer;
+  }
+  .Ranking-box {
+    border : solid 1px red;
+    width : 100px;
+  }
