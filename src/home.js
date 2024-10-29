@@ -23,7 +23,7 @@ const Home = () => {
           <div
             className="Home-button"
             onClick={() => {
-              navigate("/games");
+              navigate("/function");
             }}
           >
             지금 시작하기
@@ -32,7 +32,7 @@ const Home = () => {
           <div
             className="Home-button"
             onClick={() => {
-              navigate("/pro");
+              navigate("/ranking");
             }}
           >
             확인하러 가기

@@ -1,6 +1,5 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useCallback } from "react";
 import "./function.css";
-import { Form } from "react-router-dom";
 
 const Function = () => {
   const [sizeClass, setSizeClass] = useState("Function-small");
@@ -10,14 +9,15 @@ const Function = () => {
   const [squareVisible, setSquareVisible] = useState(false);
   const containerRef = useRef(null);
 
-  const changeFunction = () => {
+  const changeFunction = useCallback(() => { // useCallback으로 감싸기
     let parts = sizeClass.split("-");
     let size = parts[1];
     size = size === "small" ? "big" : "small";
     parts[1] = size;
     setSizeClass(parts.join("-"));
     setSquareVisible(size === "big");
-  };
+  }, [sizeClass]); // sizeClass를 의존성 추가
+
 
   const getRandomPosition = () => {
     const container = containerRef.current;
@@ -53,7 +53,7 @@ const Function = () => {
     return () => {
       document.removeEventListener("fullscreenchange", handleFullscreenChange);
     };
-  }, [sizeClass]);
+  }, [changeFunction]); // changeFunction을 의존성 배열에 추가
 
   const handleStartClick = () => {
     handleFullscreen();
@@ -90,6 +90,7 @@ const Function = () => {
       x: mousePosition.left,
       y: mousePosition.top,
     };
+    console.log(data); // data를 콘솔에 출력
   };
 
   return (
@@ -101,7 +102,7 @@ const Function = () => {
         onClick={handleClick}
       >
         {buttonVisible && (
-          <button onClick={handleStartClick} className="Fuction-start">
+          <button onClick={handleStartClick} className="Function-start"> {/* 클래스명 수정 */}
             시작
           </button>
         )}

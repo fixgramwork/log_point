@@ -1,32 +1,23 @@
 
 .Home-contents {
-    display : flex;
-    flex-direction: column;
-    align-items: flex-end;
-    justify-content: center;
-    height: 80vh;
-    padding-right: 200px;
-    font-size: 30px;
-    font-weight: 900;
+    display: flex; /* Flexbox를 사용하여 정렬 */
+    flex-direction: column; /* 세로 방향으로 쌓이게 설정 */
+    align-items: flex-start; /* 왼쪽 정렬 */
+    text-align: left; /* 텍스트 왼쪽 정렬 */
+    margin-top: 40px; /* 상단 여백 추가 */
+    margin-left: 60%;
 }
 
 .Home-button {
-    color: #FFF;
-    font-family: "Noto Sans KR";
-    font-size: 24px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
-    background-color: #6A24FE;
-    width : 150px;
-    height: 50px;
-    border-radius: 30px;
-    text-align: center;
-    justify-content: center;
-    display: flex;
-    align-items: center;
-    margin-right: 180px;
-    cursor: pointer;
+    display: block; /* 버튼을 블록 요소로 설정하여 전체 폭 사용 */
+    margin-top: 10px; /* 버튼 간 여백 추가 */
+    padding: 10px 20px; /* 버튼 내 여백 추가 */
+    background-color: #8000ff; /* 버튼 배경색 추가 */
+    color: white; /* 버튼 텍스트 색상 추가 */
+    border: none; /* 기본 테두리 제거 */
+    border-radius: 5px; /* 버튼 모서리 둥글게 추가 */
+    cursor: pointer; /* 마우스 커서 포인터로 변경 */
+    width: auto; /* 버튼을 자동 폭으로 설정 */
 }
 .Home-button:hover {
     background-color: #6A24FE;
