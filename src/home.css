@@ -1,6 +1,6 @@
 
 .Home-contents {
-    display : flex;
+    display : block;
     flex-direction: column;
     align-items: flex-end;
     justify-content: center;
@@ -23,9 +23,13 @@
     border-radius: 30px;
     text-align: center;
     justify-content: center;
-    display: flex;
+    display: block;
     align-items: center;
     margin-right: 180px;
+    margin-top: 10px;
+    cursor: pointer;
+    padding: 10px 20px;
+    text-align: center;
     cursor: pointer;
 }
 .Home-button:hover {
