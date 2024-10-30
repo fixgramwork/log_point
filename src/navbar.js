@@ -25,10 +25,6 @@ const Navbar = () => {
         <div className="Navbar-function">
           <Link to="/function">감도 측정하기</Link>
         </div>
-        <div className="Navbar-signup">
-          <Link to="/signup">회원가입</Link>
-        </div>
-        
         <div className="Navbar-signin">
           <Link to="/signin">로그인</Link>
         </div>

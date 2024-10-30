@@ -54,6 +54,7 @@
   
   #login-form input[type="checkbox"] {
     margin-right: 8px; /* 체크박스와 텍스트 간격 */
+    margin-left: 20px;
   }
  
 .custom-hr {
@@ -87,4 +88,19 @@ hr {
 
 .signup-link a:hover {
   text-decoration: underline; /* 호버 시 밑줄 추가 */
+}
+/* signin.css */
+.google-login {
+  display: flex; /* Flexbox 사용 */
+  align-items: center; /* 수직 중앙 정렬 */
+}
+
+.google-login img {
+  max-width: 30px; /* 이미지 크기 조정 */
+  height: auto; /* 비율 유지 */
+  margin-left: 10px; /* 텍스트와 이미지 사이의 간격 */
+}
+
+.google-login label {
+  margin-left: 20px; /* 이미지와 체크박스 사이의 간격 */
 }
