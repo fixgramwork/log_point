@@ -7,17 +7,17 @@ const Function = () => {
   const [mousePosition, setMousePosition] = useState({ top: 0, left: 0 });
   const [buttonVisible, setButtonVisible] = useState(true);
   const [squareVisible, setSquareVisible] = useState(false);
+  const [cursorHidden, setCursorHidden] = useState(false); // 커서 숨김 상태 추가
   const containerRef = useRef(null);
 
-  const changeFunction = useCallback(() => { // useCallback으로 감싸기
+  const changeFunction = useCallback(() => {
     let parts = sizeClass.split("-");
     let size = parts[1];
     size = size === "small" ? "big" : "small";
     parts[1] = size;
     setSizeClass(parts.join("-"));
     setSquareVisible(size === "big");
-  }, [sizeClass]); // sizeClass를 의존성 추가
-
+  }, [sizeClass]);
 
   const getRandomPosition = () => {
     const container = containerRef.current;
@@ -27,14 +27,30 @@ const Function = () => {
     const containerHeight = container.clientHeight;
     const squareSize = 50;
 
+    // 랜덤 위치 계산
     const left = Math.random() * (containerWidth - squareSize);
     const top = Math.random() * (containerHeight - squareSize);
 
     return { left, top };
   };
 
+  const setInitialPosition = () => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    const containerWidth = container.clientWidth;
+    const containerHeight = container.clientHeight;
+    const squareSize = 50;
+
+    // 중앙 위치 계산
+    const left = (containerWidth - squareSize) / 2;
+    const top = (containerHeight - squareSize) / 2;
+
+    setSquarePosition({ left, top });
+  };
+
   const handleFullscreen = () => {
-    if (document.fullscreenElement) return; // Already in fullscreen
+    if (document.fullscreenElement) return;
 
     document.documentElement.requestFullscreen().catch((err) => {
       console.error("Failed to enter fullscreen mode:", err);
@@ -43,6 +59,7 @@ const Function = () => {
 
   useEffect(() => {
     const handleFullscreenChange = () => {
+      setInitialPosition();
       if (!document.fullscreenElement) {
         changeFunction();
         setButtonVisible(true);
@@ -53,16 +70,21 @@ const Function = () => {
     return () => {
       document.removeEventListener("fullscreenchange", handleFullscreenChange);
     };
-  }, [changeFunction]); // changeFunction을 의존성 배열에 추가
+  }, [changeFunction]);
+
+  useEffect(() => {
+    // 컴포넌트가 처음 렌더링될 때 중앙 위치 설정
+    setInitialPosition();
+  }, []);
 
   const handleStartClick = () => {
     handleFullscreen();
-    setSquarePosition(getRandomPosition());
     setButtonVisible(false);
     changeFunction();
   };
 
   const handleSquareClick = () => {
+    setCursorHidden(true); // 원 클릭 시 커서 숨기기
     setSquarePosition(getRandomPosition());
     setSquareVisible(true);
   };
@@ -90,7 +112,7 @@ const Function = () => {
       x: mousePosition.left,
       y: mousePosition.top,
     };
-    console.log(data); // data를 콘솔에 출력
+    console.log(data);
   };
 
   return (
@@ -100,9 +122,10 @@ const Function = () => {
         ref={containerRef}
         onMouseMove={handleMouseMove}
         onClick={handleClick}
+        style={{ cursor: cursorHidden ? "none" : "default" }} // 커서 숨기기
       >
         {buttonVisible && (
-          <button onClick={handleStartClick} className="Function-start"> {/* 클래스명 수정 */}
+          <button onClick={handleStartClick} className="Function-start">
             시작
           </button>
         )}
@@ -112,7 +135,7 @@ const Function = () => {
             onClick={handleSquareClick}
             style={{
               display: "block",
-              cursor: "pointer",
+              cursor: "none",
               position: "absolute",
               borderRadius: "80px",
               width: "50px",
