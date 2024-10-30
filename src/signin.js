@@ -11,6 +11,7 @@ const Signin = () => {
   const pwRef = useRef();
   const navigate = useNavigate();
   const [app, setApp] = useState(null);
+  const [errorMessage, setErrorMessage] = useState(""); // 에러 메시지 상태 추가
 
   useEffect(() => {
     const firebaseConfig = {
@@ -33,6 +34,11 @@ const Signin = () => {
     const userName = idRef.current.value;
     const userPassword = pwRef.current.value;
 
+    if (!app) {
+      console.error('Firebase 앱이 초기화되지 않았습니다.');
+      return;
+    }
+
     const auth = getAuth(app);
     signInWithEmailAndPassword(auth, userName, userPassword)
       .then((userCredential) => {
@@ -44,10 +50,16 @@ const Signin = () => {
         const errorCode = error.code;
         const errorMessage = error.message;
         console.error('로그인 실패:', errorCode, errorMessage);
+        setErrorMessage(errorMessage); // 에러 메시지 상태 업데이트
       });
   };
 
   const handleGoogleSignIn = () => {
+    if (!app) {
+      console.error('Firebase 앱이 초기화되지 않았습니다.');
+      return;
+    }
+
     const auth = getAuth(app);
     const provider = new GoogleAuthProvider();
 
@@ -58,17 +70,18 @@ const Signin = () => {
         navigate("/");
       })
       .catch((error) => {
-        alert("로그인 실패: " + error.message); // 에러 메시지 추가
+        alert("로그인 실패: " + error.message);
         const errorCode = error.code;
         const errorMessage = error.message;
         console.error('구글 로그인 실패:', errorCode, errorMessage);
-    });
-    
+        setErrorMessage(errorMessage); // 에러 메시지 상태 업데이트
+      });
   };
 
   return (
     <div className="login-wrapper">
       <h2>로그인</h2>
+      {errorMessage && <p className="error-message">{errorMessage}</p>} {/* 에러 메시지 표시 */}
       <form onSubmit={handleSubmit} id="login-form">
         <input
           type="email"
