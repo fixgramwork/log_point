@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import "./signup.css"; // CSS 파일이 존재하는지 확인
+import "../css/signup.css"; // CSS 파일이 존재하는지 확인
 
 const Signup = () => { // 이름을 Signin에서 Signup으로 변경
   const idRef = useRef();

@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import "./home.css";
-import LOGO from "./LOGO.png";
+import "../CSS/home.css";
+import LOGO from "../img/LOGO.png";
 
 const Home = () => {
   const navigate = useNavigate();

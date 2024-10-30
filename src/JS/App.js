@@ -1,11 +1,11 @@
 import "./App.css";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Navbar from "./navbar.js";
-import Signin from "./signin.js";
-import Signup from "./signup.js";
-import Function from "./function.js";
-import Home from "./home.js";
-import Ranking from "./ranking.js";
+import Navbar from "./JS/navbar.js";
+import Signin from "./JS/signin.js";
+import Signup from "./JS/signup.js";
+import Function from "./JS/function.js";
+import Home from "./JS/home.js";
+import Ranking from "./JS/ranking.js";
 
 function App() {
   return (

@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect, useCallback } from "react";
-import "./function.css";
+import "../CSS/function.css";
 
 const Function = () => {
   const [sizeClass, setSizeClass] = useState("Function-small");

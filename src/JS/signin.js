@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import "./signin.css";
+import "../CSS/signin.css";
 
 const Signin = () => {
   const idRef = useRef();

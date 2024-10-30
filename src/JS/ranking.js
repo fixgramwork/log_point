@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./ranking.css";
+import "../css/ranking.css";
 
 const Ranking = () => {
   const [rankings, setRankings] = useState([
