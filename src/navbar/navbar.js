@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "./navbar.css";
-import LOGO from "./LOGO.png";
+import LOGO from "../img/LOGO.png";
 import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
@@ -11,6 +11,7 @@ const Navbar = () => {
       <div className="Navbar-icon">
         <img
           src={LOGO}
+          alt=""
           className="Navbar-Log_point"
           onClick={() => navigate("/")}
         />

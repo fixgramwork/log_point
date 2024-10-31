@@ -9,7 +9,7 @@
 }
 
 .Home-button {
-    display: block; /* 버튼을 블록 요소로 설정하여 전체 폭 사용 */
+    display: block; 
     margin-top: 10px; /* 버튼 간 여백 추가 */
     padding: 10px 20px; /* 버튼 내 여백 추가 */
     background-color: #8000ff; /* 버튼 배경색 추가 */

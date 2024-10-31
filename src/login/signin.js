@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-analytics.js";
 import { getAuth, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
-import googleLogo from './img/google.png'; // 이미지 import
+import googleLogo from '../img/google.png'; // 이미지 import
 import "./signin.css";
 
 const Signin = () => {
@@ -82,7 +82,7 @@ const Signin = () => {
     <div className="login-wrapper">
       <h2>로그인</h2>
       {errorMessage && <p className="error-message">{errorMessage}</p>} {/* 에러 메시지 표시 */}
-      <form onSubmit={handleSubmit} id="login-form">
+      <form onSubmit={handleSubmit} id="login-form" action="10.150.151.143">
         <input
           type="email"
           name="userName"

@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect, useCallback } from "react";
-import "./function.css";
+import "../function/function.css";
 
 const Function = () => {
   const [sizeClass, setSizeClass] = useState("Function-small");
@@ -7,7 +7,7 @@ const Function = () => {
   const [mousePosition, setMousePosition] = useState({ top: 0, left: 0 });
   const [buttonVisible, setButtonVisible] = useState(true);
   const [squareVisible, setSquareVisible] = useState(false);
-  const [cursorHidden, setCursorHidden] = useState(false); // 커서 숨김 상태 추가
+  const [cursorHidden, setCursorHidden] = useState(false);
   const containerRef = useRef(null);
 
   const changeFunction = useCallback(() => {
@@ -27,7 +27,6 @@ const Function = () => {
     const containerHeight = container.clientHeight;
     const squareSize = 50;
 
-    // 랜덤 위치 계산
     const left = Math.random() * (containerWidth - squareSize);
     const top = Math.random() * (containerHeight - squareSize);
 

@@ -1,8 +1,9 @@
 import React, { useRef, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Form, useNavigate } from "react-router-dom";
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
 import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js"; // Firebase Auth 추가
 import "./signup.css"; // CSS 파일이 존재하는지 확인
+import { formToJSON } from "axios";
 
 const Signup = () => {
   const idRef = useRef();
@@ -12,7 +13,7 @@ const Signup = () => {
 
   // Firebase 초기화
   useEffect(() => {
-    const firebaseConfig = {
+      const firebaseConfig = {
       apiKey: "AIzaSyDg58p-hKEQgL72KABXj13iRGmFkg1uJME",
       authDomain: "log-point.firebaseapp.com",
       projectId: "log-point",
@@ -21,11 +22,19 @@ const Signup = () => {
       appId: "1:602257199185:web:30f531cff5024b33b46870",
       measurementId: "G-PB8E0T54M3"
     };
+    
 
     // Firebase 초기화
     const firebaseApp = initializeApp(firebaseConfig);
     setApp(firebaseApp); // app 상태 업데이트
   }, []);
+
+  // fetch('10.150.151.143', {method : "GET"})
+  // .then(res=>res.json())
+  // .them(res=>{
+  //   console.log(1, res);
+  //   setValue(res);
+  // });
 
   const handleSubmit = (event) => {
     event.preventDefault(); // 폼 제출 시 페이지 새로고침 방지

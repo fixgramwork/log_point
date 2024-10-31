@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import "./home.css";
-import LOGO from "./LOGO.png";
+import "../home/home.css";
+import LOGO from "../img/LOGO.png";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -9,7 +9,7 @@ const Home = () => {
     <div className="Home-Home">
       <div className="Home-container">
         <div className="Home-greet">
-          <img src={LOGO} className="Home-Log_point" /> {/*로고*/}
+          <img src={LOGO} alt="" className="Home-Log_point" /> {/*로고*/}
           <p>
             당신이 원하던 그리고 <br />
             원했던 <strong>"감도"</strong>를 찾아드립니다.
