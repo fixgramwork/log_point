@@ -18,7 +18,7 @@ const Home = () => {
 
         <div className="Home-contents">
           <p className="Home-text">
-            감도를 측정하여 <br/> 게임별 감도를 추천드립니다.
+            감도를 측정하여 여러분에게 <br />맞는 감도를 추천드립니다.
           </p>
           <div
             className="Home-button"
@@ -28,7 +28,7 @@ const Home = () => {
           >
             지금 시작하기
           </div>
-          <p className="Home-text">프로들의 감도 확인해보기</p>
+          <p className="Home-text">사용자들의 감도랭킹 확인해보기</p>
           <div
             className="Home-button"
             onClick={() => {
