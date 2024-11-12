@@ -28,7 +28,7 @@ const Signup = () => {
     const firebaseApp = initializeApp(firebaseConfig);
     setApp(firebaseApp); // app 상태 업데이트
   }, []);
-
+  // 이건 잘 모르겠음 백에 요청 보내는거 더 찾아보기!
   // fetch('10.150.151.143', {method : "GET"})
   // .then(res=>res.json())
   // .them(res=>{

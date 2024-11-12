@@ -23,13 +23,12 @@ const Function = () => {
     const container = containerRef.current;
     if (!container) return { top: 0, left: 0 };
 
+
     const containerWidth = container.clientWidth;
     const containerHeight = container.clientHeight;
     const squareSize = 50;
-
     const left = Math.random() * (containerWidth - squareSize);
     const top = Math.random() * (containerHeight - squareSize);
-
     return { left, top };
   };
 
@@ -113,6 +112,9 @@ const Function = () => {
     };
     console.log(data);
   };
+
+
+
 
   return (
     <div className="Function-body">
