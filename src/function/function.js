@@ -6,8 +6,8 @@ const Function = () => {
   const [squarePosition, setSquarePosition] = useState({ top: 0, left: 0 });
   const [mousePosition, setMousePosition] = useState({ top: 0, left: 0 });
   const [buttonVisible, setButtonVisible] = useState(true);
+  const [cursorHidden, setCursorHidden] = useState(true); // 초기 상태를 true로 설정
   const [squareVisible, setSquareVisible] = useState(false);
-  const [cursorHidden, setCursorHidden] = useState(false);
   const containerRef = useRef(null);
 
   const changeFunction = useCallback(() => {
@@ -23,13 +23,14 @@ const Function = () => {
     const container = containerRef.current;
     if (!container) return { top: 0, left: 0 };
 
-
     const containerWidth = container.clientWidth;
     const containerHeight = container.clientHeight;
     const squareSize = 50;
-    const left = Math.random() * (containerWidth - squareSize);
-    const top = Math.random() * (containerHeight - squareSize);
-    return { left, top };
+
+    const randomOffsetX = Math.random() * (containerWidth - squareSize);
+    const randomOffsetY = Math.random() * (containerHeight - squareSize);
+
+    return { left: randomOffsetX, top: randomOffsetY };
   };
 
   const setInitialPosition = () => {
@@ -40,7 +41,6 @@ const Function = () => {
     const containerHeight = container.clientHeight;
     const squareSize = 50;
 
-    // 중앙 위치 계산
     const left = (containerWidth - squareSize) / 2;
     const top = (containerHeight - squareSize) / 2;
 
@@ -71,7 +71,6 @@ const Function = () => {
   }, [changeFunction]);
 
   useEffect(() => {
-    // 컴포넌트가 처음 렌더링될 때 중앙 위치 설정
     setInitialPosition();
   }, []);
 
@@ -82,39 +81,31 @@ const Function = () => {
   };
 
   const handleSquareClick = () => {
-    setCursorHidden(true); // 원 클릭 시 커서 숨기기
-    setSquarePosition(getRandomPosition());
+    setCursorHidden(false); // 클릭 시 커서 보이기
+    console.log(`클릭한 위치: (${mousePosition.left}, ${mousePosition.top})`);
+
+    const newPosition = getRandomPosition();
+    setSquarePosition(newPosition);
     setSquareVisible(true);
+
+    console.log(`생성된 원의 위치: (${newPosition.left}, ${newPosition.top})`);
+
+    // 1초 후에 커서 다시 숨기기
+    setTimeout(() => {
+      setCursorHidden(true); // 커서 숨기기
+    }, 100); // 100ms 후에 커서 숨기기
   };
 
   const handleMouseMove = (event) => {
     const container = containerRef.current;
     if (!container) return;
 
-    const containerRect = container.getBoundingClientRect();
-    const centerX = containerRect.width / 2;
-    const centerY = containerRect.height / 2;
+    const rect = container.getBoundingClientRect();
+    const mouseX = event.clientX - rect.left;
+    const mouseY = event.clientY - rect.top;
 
-    const mouseX = event.clientX - containerRect.left;
-    const mouseY = event.clientY - containerRect.top;
-
-    const relativeX = mouseX - centerX;
-    const relativeY = mouseY - centerY;
-
-    setMousePosition({ top: relativeY, left: relativeX });
+    setMousePosition({ left: mouseX, top: mouseY });
   };
-
-  const handleClick = (event) => {
-    console.log(`클릭한 위치: (${mousePosition.left}, ${mousePosition.top})`);
-    const data = {
-      x: mousePosition.left,
-      y: mousePosition.top,
-    };
-    console.log(data);
-  };
-
-
-
 
   return (
     <div className="Function-body">
@@ -122,8 +113,8 @@ const Function = () => {
         className={sizeClass}
         ref={containerRef}
         onMouseMove={handleMouseMove}
-        onClick={handleClick}
-        style={{ cursor: cursorHidden ? "none" : "default" }} // 커서 숨기기
+        onClick={handleSquareClick}
+        style={{ cursor: cursorHidden ? "none" : "default" }} // 커서 스타일 설정
       >
         {buttonVisible && (
           <button onClick={handleStartClick} className="Function-start">
@@ -133,7 +124,6 @@ const Function = () => {
         {squareVisible && (
           <div
             className="Function-square"
-            onClick={handleSquareClick}
             style={{
               display: "block",
               cursor: "none",
