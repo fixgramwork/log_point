@@ -1,6 +1,8 @@
 import React, { useState, useRef, useEffect, useCallback } from "react";
 import "../function/function.css";
 
+back = axios.get('http://http://10.150.151.143:8080/')
+    
 const Function = () => {
   const [sizeClass, setSizeClass] = useState("Function-small");
   const [squarePosition, setSquarePosition] = useState({ top: 0, left: 0 });
