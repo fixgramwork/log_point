@@ -20,10 +20,10 @@ This project is a web-based application designed to automatically adjust mouse s
 
 ## Tech Stack
 
-- **Frontend**: React, Vite
-- **Backend**: Node.js
-- **Server**: Raspberry Pi
-- **AI Algorithm**: Custom logic to calculate sensitivity adjustments based on input accuracy.
+- **Frontend**: React
+- **Backend**: Spring
+- **Server**: Mac Book(Docker)
+- **AI Algorithm**: ChatGPT
 
 ## Installation
 
