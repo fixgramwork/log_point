@@ -1,4 +1,4 @@
-# Mouse Sensitivity Adjustment Website
+# LogPoint
 
 This project is a web-based application designed to automatically adjust mouse sensitivity for users. The system calculates and fine-tunes sensitivity based on the user's ability to click accurately on randomly displayed circles on the screen.
 
