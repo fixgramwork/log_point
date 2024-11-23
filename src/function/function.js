@@ -1,14 +1,13 @@
 import React, { useState, useRef, useEffect, useCallback } from "react";
+import axios from "axios"; // Axios import 추가
 import "../function/function.css";
 
-back = axios.get('http://http://10.150.151.143:8080/')
-    
 const Function = () => {
   const [sizeClass, setSizeClass] = useState("Function-small");
   const [squarePosition, setSquarePosition] = useState({ top: 0, left: 0 });
   const [mousePosition, setMousePosition] = useState({ top: 0, left: 0 });
   const [buttonVisible, setButtonVisible] = useState(true);
-  const [cursorHidden, setCursorHidden] = useState(true); // 초기 상태를 true로 설정
+  const [cursorHidden, setCursorHidden] = useState(false); // 기본적으로 커서를 보이게 설정
   const [squareVisible, setSquareVisible] = useState(false);
   const containerRef = useRef(null);
 
@@ -80,22 +79,33 @@ const Function = () => {
     handleFullscreen();
     setButtonVisible(false);
     changeFunction();
+    setCursorHidden(true); // 시작 후 커서 숨김
   };
 
-  const handleSquareClick = () => {
-    setCursorHidden(false); // 클릭 시 커서 보이기
-    console.log(`클릭한 위치: (${mousePosition.left}, ${mousePosition.top})`);
-
+  const handleSquareClick = async () => {
     const newPosition = getRandomPosition();
     setSquarePosition(newPosition);
     setSquareVisible(true);
 
+    console.log(`클릭한 위치: (${mousePosition.left}, ${mousePosition.top})`);
     console.log(`생성된 원의 위치: (${newPosition.left}, ${newPosition.top})`);
 
-    // 1초 후에 커서 다시 숨기기
+    // Axios를 사용하여 백엔드로 데이터 전송
+    try {
+      const response = await axios.post('http://10.150.151.143:8080/your-endpoint', {
+        clickPosition: { left: mousePosition.left, top: mousePosition.top },
+        squarePosition: newPosition
+      });
+      console.log('서버 응답:', response.data);
+    } catch (error) {
+      console.error('데이터 전송 오류:', error);
+    }
+
+    // 커서를 잠시 보이게 함
+    setCursorHidden(false);
     setTimeout(() => {
-      setCursorHidden(true); // 커서 숨기기
-    }, 100); // 100ms 후에 커서 숨기기
+      setCursorHidden(true); // 100ms 후에 커서를 다시 숨김
+    }, 100);
   };
 
   const handleMouseMove = (event) => {
@@ -116,7 +126,7 @@ const Function = () => {
         ref={containerRef}
         onMouseMove={handleMouseMove}
         onClick={handleSquareClick}
-        style={{ cursor: cursorHidden ? "none" : "default" }} // 커서 스타일 설정
+        style={{ cursor: cursorHidden ? "none" : "default" }} // 커서 숨기기
       >
         {buttonVisible && (
           <button onClick={handleStartClick} className="Function-start">
