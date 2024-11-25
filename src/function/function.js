@@ -1,14 +1,19 @@
 import React, { useState, useRef, useEffect, useCallback } from "react";
 import axios from "axios"; // Axios import 추가
 import "../function/function.css";
+import { useNavigate } from "react-router-dom"; // useNavigate import 추가
 
 const Function = () => {
+  const navigate = useNavigate(); // useNavigate 훅 사용
   const [sizeClass, setSizeClass] = useState("Function-small");
   const [squarePosition, setSquarePosition] = useState({ top: 0, left: 0 });
   const [mousePosition, setMousePosition] = useState({ top: 0, left: 0 });
   const [buttonVisible, setButtonVisible] = useState(true);
   const [cursorHidden, setCursorHidden] = useState(false); // 기본적으로 커서를 보이게 설정
   const [squareVisible, setSquareVisible] = useState(false);
+  const [clickCount, setClickCount] = useState(0); // 클릭 횟수 추적
+  const [madeCircle, setMadeCircle] = useState([]); // 생성된 원의 위치 리스트
+  const [madeClick, setMadeClick] = useState([]); // 클릭한 위치 리스트
   const containerRef = useRef(null);
 
   const changeFunction = useCallback(() => {
@@ -83,24 +88,45 @@ const Function = () => {
   };
 
   const handleSquareClick = async () => {
+    if (clickCount >= 6) {
+      // 클릭 횟수가 6회에 도달하면 리스트를 백엔드에 전송
+      try {
+        const response = await axios.post('http://10.150.151.143:8080/your-endpoint', {
+          madeClick,
+          madeCircle
+        });
+        console.log('서버 응답:', response.data);
+        
+        // 클릭이 6회에 도달했을 때 리스트의 값을 콘솔에 출력
+        console.log('클릭한 위치 리스트:', madeClick);
+        console.log('생성된 원의 위치 리스트:', madeCircle);
+  
+        // 리스트 초기화
+        setMadeClick([]);
+        setMadeCircle([]);
+  
+        // result.js로 이동
+        navigate("/result"); // useNavigate를 사용하여 페이지 이동
+      } catch (error) {
+        console.error('데이터 전송 오류:', error);
+      }
+      return; // 더 이상 클릭을 처리하지 않음
+    }
+  
     const newPosition = getRandomPosition();
     setSquarePosition(newPosition);
     setSquareVisible(true);
-
-    console.log(`클릭한 위치: (${mousePosition.left}, ${mousePosition.top})`);
-    console.log(`생성된 원의 위치: (${newPosition.left}, ${newPosition.top})`);
-
-    // Axios를 사용하여 백엔드로 데이터 전송
-    try {
-      const response = await axios.post('http://10.150.151.143:8080/your-endpoint', {
-        clickPosition: { left: mousePosition.left, top: mousePosition.top },
-        squarePosition: newPosition
-      });
-      console.log('서버 응답:', response.data);
-    } catch (error) {
-      console.error('데이터 전송 오류:', error);
+  
+    // 첫 번째 클릭이 아닐 때만 리스트에 추가
+    if (clickCount > 0) {
+      setMadeClick((prev) => [...prev, mousePosition]);
+      setMadeCircle((prev) => [...prev, newPosition]);
+      console.log('클릭한 위치:', mousePosition); // 클릭한 위치 콘솔 출력
+      console.log('생성된 원의 위치:', newPosition); // 생성된 원의 위치 콘솔 출력
     }
-
+  
+    setClickCount((prev) => prev + 1); // 클릭 횟수 증가
+  
     // 커서를 잠시 보이게 함
     setCursorHidden(false);
     setTimeout(() => {
@@ -148,11 +174,6 @@ const Function = () => {
               left: `${squarePosition.left}px`,
             }}
           ></div>
-        )}
-        {!buttonVisible && (
-          <div className="Mouse-position">
-            마우스 위치: ({mousePosition.left},{Math.round(mousePosition.top)})
-          </div>
         )}
       </div>
     </div>
